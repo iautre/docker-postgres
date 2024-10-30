@@ -11,7 +11,7 @@ RUN set -x \
     # && sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
 	&& apk update \
 	&& apk upgrade \
-	&& apk add --no-cache tzdata wget build-base postgresql${PG_MAJOR}-dev \
+	&& apk add --no-cache tzdata wget build-base postgresql-${PG_MAJOR}-dev \
 	&& cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 	&& mkdir -p /tmp/pgvector \
 	&& wget https://github.com/pgvector/pgvector/archive/refs/tags/v${PGVECTOR_VERSION}.tar.gz -O /tmp/pgvector/v${PGVECTOR_VERSION}.tar.gz \
