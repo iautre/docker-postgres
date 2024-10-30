@@ -23,7 +23,7 @@ RUN set -x \
 	&& mkdir -p /usr/share/doc/pgvector \
 	&& cp LICENSE README.md /usr/share/doc/pgvector \
 	&& rm -r /tmp/pgvector \
-	&& apk del tzdata wget build-base postgresql${PG_MAJOR}-dev \
+	&& apk del tzdata wget build-base postgresql-${PG_MAJOR}-dev \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN set -x \
