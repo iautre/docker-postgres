@@ -7,23 +7,21 @@ ARG PGVECTOR_VERSION=0.7.4
 
 # COPY v0.5.1.tar.gz /tmp/pgvector/
 
+WORKDIR /tmp
+
 RUN set -x \
     # && sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
 	&& apk update \
 	&& apk upgrade \
-	&& apk add --no-cache tzdata wget \
+	&& apk add --no-cache tzdata git build-base \
 	&& cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-	&& mkdir -p /tmp/pgvector \
-	&& wget https://github.com/pgvector/pgvector/archive/refs/tags/v${PGVECTOR_VERSION}.tar.gz -O /tmp/pgvector/v${PGVECTOR_VERSION}.tar.gz \
-	&& tar -zxvf /tmp/pgvector/v${PGVECTOR_VERSION}.tar.gz -C /tmp/pgvector \
-	&& cd /tmp/pgvector/pgvector-${PGVECTOR_VERSION} \
-	&& make clean \
+	&& git clone --branch v${PGVECTOR_VERSION} https://github.com/pgvector/pgvector.git \
+	&& cd pgvector \
+	&& make \
 	&& make OPTFLAGS="" \
 	&& make install \
-	&& mkdir -p /usr/share/doc/pgvector \
-	&& cp LICENSE README.md /usr/share/doc/pgvector \
 	&& rm -r /tmp/pgvector \
-	&& apk del tzdata wget \
+	&& apk del tzdata git build-base  \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN set -x \
