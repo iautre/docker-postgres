@@ -1,8 +1,7 @@
-FROM postgres:17.0-alpine3.20
+FROM postgres:16.4-alpine3.20
 
 LABEL maintainer="a little <little@autre.cn> https://coding.autre.cn"
 
-ARG PG_MAJOR=17
 ARG PGVECTOR_VERSION=0.7.4
 
 # COPY v0.5.1.tar.gz /tmp/pgvector/
