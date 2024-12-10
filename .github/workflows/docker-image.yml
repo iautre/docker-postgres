@@ -36,5 +36,5 @@ jobs:
             linux/arm64
         push: ${{ github.event_name != 'pull_request' }}
         tags: |
-            ${{ secrets.DOCKER_HUB_USERNAME }}/postgres:17.0-alpine3.20-pgvector0.7.4
+            ${{ secrets.DOCKER_HUB_USERNAME }}/postgres:17.2-alpine3.20-pgvector0.8.0
             ${{ secrets.DOCKER_HUB_USERNAME }}/postgres:latest

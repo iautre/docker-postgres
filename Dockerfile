@@ -1,8 +1,8 @@
-FROM postgres:17.0-alpine3.20
+FROM postgres:17.2-alpine3.20
 
 LABEL maintainer="a little <little@autre.cn> https://coding.autre.cn"
 
-ARG PGVECTOR_VERSION=0.7.4
+ARG PGVECTOR_VERSION=0.8.0
 
 # COPY v0.5.1.tar.gz /tmp/pgvector/
 
@@ -14,6 +14,7 @@ RUN set -x \
 	&& apk upgrade \
 	&& apk add --no-cache tzdata git build-base clang15 llvm15 \
 	&& cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+	&& echo "Asia/Shanghai" > /etc/timezone \
 	&& git clone --branch v${PGVECTOR_VERSION} https://github.com/pgvector/pgvector.git \
 	&& cd pgvector \
 	&& make \
