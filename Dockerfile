@@ -1,4 +1,4 @@
-FROM postgres:17.2-alpine3.20
+FROM postgres:17.4-alpine3.21
 
 LABEL maintainer="a little <little@autre.cn> https://coding.autre.cn"
 
