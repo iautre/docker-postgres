@@ -12,7 +12,7 @@ RUN set -x \
     # && sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
 	&& apk update \
 	&& apk upgrade \
-	&& apk add --no-cache tzdata git build-base clang15 llvm15 \
+	&& apk add --no-cache tzdata git build-base clang15 clang19 llvm15 \
 	&& cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 	&& echo "Asia/Shanghai" > /etc/timezone \
 	&& git clone --branch v${PGVECTOR_VERSION} https://github.com/pgvector/pgvector.git \
