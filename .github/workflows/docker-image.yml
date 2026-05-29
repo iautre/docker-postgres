@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    tags: [ '*' ]
   pull_request:
     branches: [ "main" ]
 
@@ -47,9 +47,9 @@ jobs:
           linux/arm64
         push: ${{ github.event_name != 'pull_request' }}
         tags: |
-          ${{ secrets.DOCKER_HUB_USERNAME }}/postgres:18.3-alpine3.23-pgvector0.8.2
+          ${{ secrets.DOCKER_HUB_USERNAME }}/postgres:${{ github.ref_name }}
           ${{ secrets.DOCKER_HUB_USERNAME }}/postgres:latest
-          ghcr.io/${{ github.repository_owner }}/postgres:18.3-alpine3.23-pgvector0.8.2
+          ghcr.io/${{ github.repository_owner }}/postgres:${{ github.ref_name }}
           ghcr.io/${{ github.repository_owner }}/postgres:latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
