@@ -4,8 +4,6 @@ LABEL maintainer="a little <little@autre.cn> https://coding.autre.cn"
 
 ARG PGVECTOR_VERSION=0.8.6
 
-# 使用官方默认 PGDATA=/var/lib/postgresql/data，不覆盖
-
 WORKDIR /tmp
 
 RUN set -x \
