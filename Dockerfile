@@ -9,7 +9,7 @@ WORKDIR /tmp
 RUN set -x \
     # && sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
     && apk update \
-    && apk add --no-cache tzdata git build-base clang19 llvm19 \
+    && apk add --no-cache tzdata git build-base clang llvm \
     && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
     && git clone --branch v${PGVECTOR_VERSION} https://github.com/pgvector/pgvector.git \
@@ -18,7 +18,7 @@ RUN set -x \
     && make install \
     && cd /tmp \
     && rm -rf /tmp/pgvector \
-    && apk del tzdata git build-base clang19 llvm19 \
+    && apk del tzdata git build-base clang llvm \
     && rm -rf /var/cache/apk/*
 
 RUN set -x \
