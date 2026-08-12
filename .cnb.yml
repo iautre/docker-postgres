@@ -5,9 +5,19 @@ main:
       stages:
         # 同名镜像构建&推送
         - name: Docker build
-          script: docker build -t ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:${CNB_BRANCH} -t ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:latest .
+          script: |
+            POSTGRES_VERSION=$(sed -n 's/^ARG POSTGRES_VERSION=//p' Dockerfile)
+            ALPINE_VERSION=$(sed -n 's/^ARG ALPINE_VERSION=//p' Dockerfile)
+            PGVECTOR_VERSION=$(sed -n 's/^ARG PGVECTOR_VERSION=//p' Dockerfile)
+            IMAGE_VERSION="${POSTGRES_VERSION}-alpine${ALPINE_VERSION}-pgvector${PGVECTOR_VERSION}"
+            docker build -t ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:${IMAGE_VERSION} -t ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:latest .
         - name: Docker push version
-          script: docker push ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:${CNB_BRANCH}
+          script: |
+            POSTGRES_VERSION=$(sed -n 's/^ARG POSTGRES_VERSION=//p' Dockerfile)
+            ALPINE_VERSION=$(sed -n 's/^ARG ALPINE_VERSION=//p' Dockerfile)
+            PGVECTOR_VERSION=$(sed -n 's/^ARG PGVECTOR_VERSION=//p' Dockerfile)
+            IMAGE_VERSION="${POSTGRES_VERSION}-alpine${ALPINE_VERSION}-pgvector${PGVECTOR_VERSION}"
+            docker push ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:${IMAGE_VERSION}
         - name: Docker push latest
           script: docker push ${CNB_DOCKER_REGISTRY}/${CNB_REPO_SLUG_LOWERCASE}:latest
         #  # 非同名镜像构建&推送
